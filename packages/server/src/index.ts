@@ -1,8 +1,11 @@
 // expose a simple GraphQL server with a simple schema to test how our server works
 
 import express, { Application } from 'express';
-import { ApolloServer, Config, gql } from 'apollo-server-express';
+import { ApolloServer, gql } from 'apollo-server-express';
 import { IResolvers } from '@graphql-tools/utils';
+import schema from './graphql/schema';
+
+
 
 const PORT = 8080;
 
@@ -22,18 +25,13 @@ const resolvers: IResolvers = {
 };
 
 const app: Application = express();
-const config: Config = {
-    typeDefs: typeDefs,
-    resolvers: resolvers
-};
 
-app.get('/', (req, res) =>
-    res.send('Express is successfully running!'));
 
-async function startApolloServer(config: Config) {
+
+async function startApolloServer() {
     
     const app: Application = express();
-    const server: ApolloServer = new ApolloServer(config);
+    const server: ApolloServer = new ApolloServer({ schema });
     await server.start();
     server.applyMiddleware({
         app,
@@ -45,5 +43,5 @@ async function startApolloServer(config: Config) {
 }
 
 
-startApolloServer(config);
+startApolloServer();
 
