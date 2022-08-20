@@ -1,35 +1,18 @@
 // expose a simple GraphQL server with a simple schema to test how our server works
 
 import express, { Application } from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
-import { IResolvers } from '@graphql-tools/utils';
+import { ApolloServer } from 'apollo-server-express';
 import schema from './graphql/schema';
+import casual from 'casual';  // fake data generator
 
 
 
-const PORT = 8080;
-
-// type definition
-const typeDefs = gql`
-    type Query {
-        message: String!
-    }
-`;
-
-
-// resolver
-const resolvers: IResolvers = {
-    Query: {
-      message: () => 'It works!'
-    }
-};
-
-const app: Application = express();
 
 
 
 async function startApolloServer() {
     
+    const PORT = 8080;
     const app: Application = express();
     const server: ApolloServer = new ApolloServer({ schema, mocks: true });
     await server.start();

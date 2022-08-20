@@ -1,4 +1,4 @@
-import fs from "fs"; 
+import fs from 'fs'; 
 
 import { GraphQLSchema } from 'graphql'; 
 
@@ -15,7 +15,7 @@ const typeDefs = gql`${fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf
 const schema: GraphQLSchema = makeExecutableSchema({ 
 
   typeDefs, 
-  resolvers, 
+  resolvers 
 
 }); 
 
