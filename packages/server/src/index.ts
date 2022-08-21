@@ -4,6 +4,7 @@ import express, { Application } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import schema from './graphql/schema';
 import casual from 'casual';  // fake data generator
+import cors from 'cors';
 
 // linking the mocked data
 let postsIds: string[] = [];
@@ -68,6 +69,7 @@ async function startApolloServer() {
     
     const PORT = 8080;
     const app: Application = express();
+    app.use( cors() );
     const server: ApolloServer = new ApolloServer({ schema, mocks, mockEntireSchema: false });
     await server.start();
     server.applyMiddleware({
